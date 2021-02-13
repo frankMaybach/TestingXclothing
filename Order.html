@@ -148,6 +148,16 @@
             display: table;
             clear: both;
         }
+        .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+        
 
         /* Content */
         .content {
@@ -202,10 +212,11 @@
 
     <div class="main">
 
-        <h1>XCLOTHING ORDER PAGE</h1>
+        <h1 style="text-align: center; color: chocolate;"> XCLOTHING ORDER PAGE</h1>
         <hr>
 
-        <h2>PORTFOLIO</h2>
+        <h2 style="text-align: center;"> PORTFOLIO</h2>
+        <hr>
 
         <div id="myBtnContainer">
             <button class="btn active" onclick="filterSelection('all')"> Show all</button>
@@ -388,6 +399,12 @@
             });
         }
     </script>
+
+
+<div class="footer">
+    <p>© 2021. All Rights Reserved</p>
+</div>
+
 
 
 </body>
