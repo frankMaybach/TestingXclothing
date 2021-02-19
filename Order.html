@@ -107,48 +107,52 @@
     }
 
     body {
-            background-color: #f1f1f1;
-            padding: 20px;
-            font-family: Arial;
-        }
-        .main {
-            max-width: 1000px;
-            margin: auto;
-        }
+        background-color: #f1f1f1;
+        padding: 10px;
+        font-family: Arial;
+    }
 
-        h1 {
-            font-size: 50px;
-            word-break: break-all;
-        }
-        h1 {
-            font-size: 50px;
-            word-break: break-all;
-        }
+    .main {
+        max-width: 1000px;
+        margin: auto;
+    }
 
-        .row {
-            margin: 10px -10px;
-        }
+    h1 {
+        font-size: 50px;
+        word-break: break-all;
+    }
 
-        /* Add padding BETWEEN each column */
-        .row,
-        .row>.column {
-            padding: 4px;
-        }
+    h1 {
+        font-size: 50px;
+        word-break: break-all;
+    }
 
-        /* Create three equal columns that floats next to each other */
-        .column {
-            float: left;
-            width: 33.33%;
-            display: none;
-            /* Hide all elements by default */
-        }
-        /* Clear floats after rows */
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        .footer {
+    .row {
+        margin: 10px -10px;
+    }
+
+    /* Add padding BETWEEN each column */
+    .row,
+    .row>.column {
+        padding: 4px;
+    }
+
+    /* Create three equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 33.33%;
+        display: none;
+        /* Hide all elements by default */
+    }
+
+    /* Clear floats after rows */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .footer {
         position: fixed;
         left: 0;
         bottom: 0;
@@ -157,36 +161,36 @@
         color: white;
         text-align: center;
     }
-        
 
-        /* Content */
-        .content {
-            background-color: white;
-            padding: 10px;
-        }
 
-        /* The "show" class is added to the filtered elements */
-        .show {
-            display: block;
-        }
+    /* Content */
+    .content {
+        background-color: white;
+        padding: 10px;
+    }
 
-        /* Style the buttons */
-        .btn {
-            border: none;
-            outline: none;
-            padding: 12px 16px;
-            background-color: white;
-            cursor: pointer;
-        }
+    /* The "show" class is added to the filtered elements */
+    .show {
+        display: block;
+    }
 
-        .btn:hover {
-            background-color: #ddd;
-        }
+    /* Style the buttons */
+    .btn {
+        border: none;
+        outline: none;
+        padding: 12px 16px;
+        background-color: white;
+        cursor: pointer;
+    }
 
-        .btn.active {
-            background-color: #666;
-            color: white;
-        }
+    .btn:hover {
+        background-color:coral;
+    }
+
+    .btn.active {
+        background-color: #666;
+        color: white;
+    }
 </style>
 
 <body>
@@ -268,9 +272,9 @@
                 <div class="content">
                     <img src="woman1.jpg" alt="woman1" style="width:100%">
                     <h4>Bow Decorated Crop Top</h4>
-                        <p>color: Pink</p>
-                        <p>Price: <b>$30.00</b></p>
-                        <p>Order ID: 0005</p>
+                    <p>color: Pink</p>
+                    <p>Price: <b>$30.00</b></p>
+                    <p>Order ID: 0005</p>
                 </div>
             </div>
             <div class="column women">
@@ -281,7 +285,8 @@
                     <p>Price: <b>$30.00</b></p>
                     <p>Order ID: 0005</p>
                 </div>
-            </div>
+            </div><br>
+
             <div class="column women">
                 <div class="content">
                     <img src="woman3.jpg" alt="Car" woman="width:100%">
@@ -347,7 +352,7 @@
                     <p>Order ID: 0012</p>
                 </div>
             </div>
-            
+
             <!-- END GRID -->
         </div>
 
@@ -401,9 +406,9 @@
     </script>
 
 
-<div class="footer">
-    <p>© 2021. All Rights Reserved</p>
-</div>
+    <div class="footer">
+        <p>© 2021. All Rights Reserved</p>
+    </div>
 
 
 
