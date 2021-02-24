@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>Document</title>
 </head>
 <style>
@@ -151,6 +152,33 @@
         background-color: #f1f1f1;
         text-align: center;
     }
+    .column2 {
+        float: left;
+        width: 33.33%;
+        padding: 10px;
+        height: 300px;
+        color: white;
+     
+    }
+
+    /* Clear floats after the columns */
+    .row2:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+    
+    
 </style>
 
 <body>
@@ -213,6 +241,36 @@
             <p>Already have an account? <a href="NewCustomer.html">Sign in</a>.</p>
         </div>
     </form>
+
+    <div class="row2">
+        <div class="column2" style="background-color:black;">
+            <h3> CONTACT </h3>
+            <p>Xclothing@gmail.com</p>
+        </div>
+        <div class="column2" style="background-color:black;">
+            <h3>COMPANY INFO</h3>
+            <p><a href="#">About us</a></p>
+            <p><a href="#">Contact Us</a></p>
+            <p><a href="#">Privacy Policy</a></p>
+            <p><a href="#">Terms & Conditions</a></p>
+      
+        </div>
+        <div class="column2" style="background-color:black;">
+            <h3>Social Media</h3>
+            <p><a href="https://www.facebook.com/">Facebook</a></p>
+            <p><a href="https://www.instagram.com/">Instagram</a></p>
+            <p><a href="https://twitter.com/login?lang=en">Twitter</a></p>
+            <p><a href="#">Terms & Conditions</a></p>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <p>© 2021. All Rights Reserved</p>
+      </div>
+      
+
+    
+      
 
 
 </body>
