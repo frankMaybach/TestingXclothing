@@ -2,15 +2,19 @@ CREATE DATABASE xclothing;
 
 
 CREATE TABLE manufacturer (
+    id SERIAL PRIMARY KEY,
   productID  VARCHAR(30),
-  OrderNumber VARCHAR (30),
+  OrderNumber VARCHAR (30) NOT NULL,
   ProductName VARCHAR(30),
-  ManufactureDate VARCHAR(30),
-  ExpiringDate VARCHAR(30),
+  ManufactureDate VARCHAR(30) NOT NULL,
+  ExpiringDate VARCHAR(30)NULL NOT ,
   SupplierID VARCHAR(30),
   Color VARCHAR(30),
   Size VARCHAR(30)
 );
+
+
+
 
   SELECT * FROM manufacturer;
 
@@ -22,8 +26,8 @@ CREATE TABLE manufacturer (
 
     
 CREATE TABLE orders (
-  OrderID  VARCHAR(30),
-  CustomerID VARCHAR (30),
+  OrderID  (30),
+  CustomerID VARCHAR (30) NOT NULL,
   OrderNumber VARCHAR(30),
   OrderDate VARCHAR(40),
   RequiredDate VARCHAR(39),
