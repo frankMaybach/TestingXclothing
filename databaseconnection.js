@@ -1,234 +1,238 @@
-const { Client } = require('pg')
-const client = new Client({
+const Pool = require('pg').Pool
+const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'xclothing',
     password: 'kokolet121',
     port: 5432,
 })
-client.connect()
 
-client.query('SELECT * FROM nanufacturer')
-    .then(function (results) {
-        console.log("succefull");
-        console.log(results.rowCount)
-        client.end()
-    })
 
-    .catch(function (erro) {
-        console.log("Not Connected");
-        console.log(error);
-        client.end();
-    });
-
-const getmanufacturerById = (request, response) => {
-    const id = parseInt(request.params.id)
-
-    client.query('SELECT * FROM manufacturer WHERE id = $1', [id], (error, results) => {
+// retrieve manafacturer data by ID
+const getmanufacturer = (request, response) => {
+    pool.query('SELECT * FROM manufacturer ORDER BY id ASC', (error, results) => {
         if (error) {
             throw error
         }
-        response.status(200).json(results.rows)
+        response.status(200).json(results.rows);
     })
 }
-// Add or Into into manufacturer
-const createNewManufacturer = (request, response) => {
-    const { productID, OrderNumber, ProductName, ManufactureDate, ExpiringDate, SupplierID, Color, Size } = request.body
-    client.query('INSERT INTO users (productID, OrderNumber, ProductName, ManufactureDate, ExpiringDate, SupplierID, Color, Size) VALUES ($1, $2,$3,$4,$5,$6,$7,$8)', [productID, OrderNumber, ProductName, ManufactureDate, ExpiringDate, SupplierID, Color, Size], (error, results) => {
+const getManufacturerById = (request, response) => {
+    const id = parseInt(request.params.id);
+
+    pool.query('SELECT * FROM manufacturer WHERE id = $1', [id], (error, results) => {
         if (error) {
             throw error
         }
-        response.status(201).send(`User added with ID: ${result.insertId}`)
-    })
-}
-// Update or Edit manufacturer table
-const updatemanufacturer = (request, response) => {
-    const id = parseInt(request.params.id);
-    const { productID, OrderNumber, ProductName, ManufactureDate, ExpiringDate, SupplierID, Color, Size } = request.body;
-
-    pool.query(
-        'UPDATE manufacturer SET productID = $1, OrderNumber = $2, ProductName = $3', 'ManufactureDate', 'ExpiringDate', 'SupplierID', 'Color', 'Size')
-    [productID, OrderNumber, ProductName, ManufactureDate, ExpiringDate, SupplierID, Color, Size],
-        (error, results) => {
-            if (error) {
-                throw error
-            }
-            response.status(200).json({ status: 'success', message: `Manufacturer with id ${id} was modified successfully` });
-        };
-}
-
-
-// delete manafacture data
-const deleteManufacturer = (request, response) => {
-    const id = parseInt(request.params.id);
-
-    pool.query('DELETE FROM manufacturers WHERE id = $1', [id], (error, results) => {
-        if (error) {
-            throw error;
-        }
-
-        response.status(200).json({ status: 'success', message: `Manufacturer with id ${id} has been deleted`});
-    })
-}
-
-// Get or fetch Cloths data
-const getCloths = (request, response) => {
-    pool.query('SELECT * FROM cloths ORDER BY id ASC', (error, results) => {
-        if (error) {
-            throw error;
-        }
-
         response.status(200).json(results.rows);
     })
 }
 
-// to retrieve single data by ID from Customer
+// create and add new manufacturer data
+const createNewManufacturer = (request, response) => {
+    const { name, email } = request.body;
+
+    pool.query('INSERT INTO manufacturer (productID, OrderNumber, ProductName, ManufactureDate, ExpiringDate, SupplierID, Color, Size)', [productID, OrderNumber, ProductName, ManufactureDate, ExpiringDate, SupplierID, Color, Size], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(201).send(`Succefully added with ID: ${result.insertId}`)
+    })
+}
+
+// update or alter manufacturer data
+const updatemanufacturer = (request, response) => {
+    const id = parseInt(request.params.id)
+    const { productID, OrderNumber, ProductName, ManufactureDate, ExpiringDate, SupplierID, Color, Size } = request.body
+
+    pool.query(
+        'UPDATE users SET productID = $1, OrderNumber = $2, ProductName = $3,ManufacturerDate = $4, ExpiringDate =$5, SupplierDate= $6, Color = $7, Size = $8 WHERE id = $3',
+        [productID, OrderNumber, ProductName, ManufactureDate, ExpiringDate, SupplierID, Color, Size],
+        (error, results) => {
+            if (error) {
+                throw error
+            }
+            response.status(200).send(`User modified with ID: ${id}`);
+        }
+    )
+}
+
+// delete manufacturer data 
+const deleteManufacturer = (request, response) => {
+    const id = parseInt(request.params.id);
+
+    pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).send(`User deleted with ID: ${id}`);
+    })
+}
+
+
+// retrieve customer data by ID
+const getCustomer = (request, response) => {
+    pool.query('SELECT * FROM customer ORDER BY id ASC', (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows);
+    })
+}
+
+// retrieve a single customer data by his or her ID
 const getSingleCustomerById = (request, response) => {
     const id = parseInt(request.params.id);
 
     pool.query('SELECT * FROM customer WHERE id = $1', [id], (error, results) => {
         if (error) {
-            throw error;
+            throw error
         }
-
         response.status(200).json(results.rows);
     })
 }
 
-// To insert into Customers
+// create or add new customer data
 const createNewCustomer = (request, response) => {
-    const { CustomerID, FirstName,Lastname, EmailAddress, Country, CustomerAddress, OrderNumber } = request.body;
+    const { name, email } = request.body
 
-    pool.query('INSERT INTO customer (CustomerID, FirstName, Lastname, Country, CustomerAddress, OrderNumber) VALUES ($1, $2, $3, $4, $5, $6,$7)', [CustomerID, FirstName, Lastname, Country, CustomerAddress, OrderNumber], (error, results) => {
+    pool.query('INSERT INTO customer ( CustomerID, FirstName,Lastname, EmailAddress, Country, CustomerAddress, OrderNumber)', [CustomerID, FirstName, Lastname, EmailAddress, Country, CustomerAddress, OrderNumber], (error, results) => {
         if (error) {
-            throw error;
+            throw error
         }
-
-        response.status(201).json({ 'status': 'exellent', 'id': results.insertId });
+        response.status(201).send(`Succefully added with ID: ${result.insertId}`);
     })
 }
 
-// Update Customer data
+// update or alter customer data
 const updateCustomer = (request, response) => {
     const id = parseInt(request.params.id);
-    const { CustomerID, FirstName,Lastname, EmailAddress, Country, CustomerAddress, OrderNumber } = request.body;
+    const { CustomerID, FirstName, Lastname, EmailAddress, Country, CustomerAddress, OrderNumber } = request.body
 
-    pool.query('UPDATE customer SET customerID = $1, firstNme = $2, lastName =$3, emailAddress = $4, country = $5, customerAddress = $6 WHERE orderNumber = $7', [CustomerID, FirstName, Lastname, Country, CustomerAddress, OrderNumber], (error, results) => {
-        if (error) {
-            throw error;
+    pool.query(
+        'UPDATE customer SET CustomerID = $1, Firstname = $2, Lastname = $3, EmailAddress= $4, Country =$5, CustomerAddress= $6, OrderNumber = $7 WHERE id = $8',
+        [CustomerID, FirstName, Lastname, EmailAddress, Country, CustomerAddress, OrderNumber],
+        (error, results) => {
+            if (error) {
+                throw error
+            }
+            response.status(200).send(`Customer modified with ID: ${id}`);
         }
-
-        response.status(200).json({ status: 'success', message: `Customer with id ${id} was updated succefully` });
-    })
+    )
 }
 
-// Delete Customer data
+// delete customer data 
 const deleteCustomer = (request, response) => {
     const id = parseInt(request.params.id);
 
-    pool.query('DELETE FROM customer WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
         if (error) {
-            throw error;
+            throw error
         }
-
-        response.status(200).json({ status: 'success', message: `Cloth with id ${id} was deleted successfully`});
+        response.status(200).send(`Customer deleted with ID: ${id}`);
     })
 }
-
-
-// Get or fetch Orders data
+// retrieve data from orders
 const getOrders = (request, response) => {
     pool.query('SELECT * FROM orders ORDER BY id ASC', (error, results) => {
         if (error) {
-            throw error;
+            throw error
         }
-
         response.status(200).json(results.rows);
     })
 }
-
-// Get or fetch Orders  (single) data by ID
+// retrieve a single Orders data by his or her ID
 const getSingleOrderById = (request, response) => {
     const id = parseInt(request.params.id);
 
     pool.query('SELECT * FROM orders WHERE id = $1', [id], (error, results) => {
         if (error) {
-            throw error;
+            throw error
         }
-
         response.status(200).json(results.rows);
     })
 }
 
-// Add Order data
-  const createNewOrders = (request, response) => {
-    const {OrderID, CustomerID, OrderNumber, OrderDate, RequiredDate, ShipperID } = request.body;
+// create or add new orders data
+const createNewOrders = (request, response) => {
+    const { name, email } = request.body;
 
-    pool.query('INSERT INTO orders (OrderID,customerID, OrderNumber, OrderDate, RequiredDate,ShipperId) VALUES ($1, $2, $3, $4, $5, $6)', [OrderID,customerID, OrderNumber, OrderDate, RequiredDate,ShipperId], (error, results) => {
+    pool.query('INSERT INTO orders ( OrderID, CustomerID, OrderNumber, OrderDate, RequiredDate, ShipperID)', [OrderID, CustomerID, OrderNumber, OrderDate, RequiredDate, ShipperID], (error, results) => {
         if (error) {
-            throw error;
+            throw error
         }
-
-        response.status(201).json({ 'status': 'success', 'id': results.insertId });
+        response.status(201).send(`Succefully added with ID: ${result.insertId}`);
     })
 }
 
-// Update Orders data
+// update or alter orders data
 const updateOrders = (request, response) => {
     const id = parseInt(request.params.id);
-    const { order_date, cloth_id, quantity, customer_code } = request.body;
+    const { OrderID, CustomerID, OrderNumber, OrderDate, RequiredDate, ShipperID } = request.body;
 
-    pool.query('UPDATE orders SET OrderId = $1, CustomerID= $2, OrderNumber = $3, OrderDate = $4, RequiredDate=$5,ShipperId=$6 WHERE id = $6', [OrderID,customerID, OrderNumber, OrderDate, RequiredDate,ShipperId], (error, results) => {
-        if (error) {
-            throw error;
+    pool.query('UPDATE customer SET OrderID = $1, CustomerID = $2, OrderNumber = $3, OrderDate =$4, RequiredDate =$5, ShippingID= $6  WHERE id = $8',
+        [OrderID, CustomerID, OrderNumber, OrderDate, RequiredDate, ShipperID],
+        (error, results) => {
+            if (error) {
+                throw error
+            }
+            response.status(200).send(`User modified with ID: ${id}`);
         }
-
-        response.status(200).json({ status: 'success', message: `Order with id ${id} updated sucessfully` });
-    })
+    )
 }
 
-// Delete Orders data
+// delete orders data 
 const deleteOrders = (request, response) => {
     const id = parseInt(request.params.id);
 
     pool.query('DELETE FROM orders WHERE id = $1', [id], (error, results) => {
         if (error) {
-            throw error;
+            throw error
         }
-
-        response.status(200).json({ status: 'success', message: `Order with id ${id} was deleted successfully`});
+        response.status(200).send(`User deleted with ID: ${id}`);
     })
 }
 
-
-
-
-
-
-
-
-
-
-// export to index.js_ Manufacturer
+// for exports
 module.exports = {
-    
-   // getmanufacturer,
-   // getSingleManufacturerById,
+    getmanufacturer,
+    getManufacturerById,
     createNewManufacturer,
-   // updateManufacturer,
+    updatemanufacturer,
     deleteManufacturer,
 
-    //Customer
+
     getCustomer,
     getSingleCustomerById,
     createNewCustomer,
     updateCustomer,
-    deleteCustomer,
+    deleteCustomer
 
-    //Orders
+    
     getOrders,
     getSingleOrderById,
-    createNewOrder,
-    updateOrder,
-    deleteOrder,
+    createNewOrders,
+    updateOrders,
+    deleteOrders,
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

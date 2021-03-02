@@ -1,10 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
-const db = require('./queries');
 
-
+const port = 4000
 app.use(bodyParser.json());
 app.use(
     bodyParser.urlencoded({
@@ -14,67 +12,40 @@ app.use(
 
 
 
+
 app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' });
 });
-
-app.listen(port, () => {
-    console.log(`App connected to the port> ${port}.`);
+app.get('/hello', (request, response) => {
+    response.status(200).send('Hello');
 });
 
 const db = require('./queries');
-
-// retrieve date from manafacturer table
-app.get('/manufacturer', db.getmanufacturer);
-
-app.get('/manufacturer/:id', db.getSinglemanufacturerById)
-
-// Add Data into manafacturer table
-app.post('/manufacturer', db.createNewManufacturer);
-
-// update or edit manufacturer table
-app.put('/manufacturer/:id', db.updateUser);
-
-// delete data from manufacturer table
+// retrieve,Insert, update and delete from manufacturer data
+app.get('/manufacturer', db.getManufacturer);
+app.get('/manufacturer/:id', db.getManufacturerById);
+app.post('/manufacturer', db.createManufacturer);
+app.put('/manufacturer/:id', db.updateManufacturer);
 app.delete('/manufacturer/:id', db.deleteManufacturer);
 
 
-// Get or fetch Cloths data
-app.get('/customer', db.getCustomer);
+// retrieve, insert, update and delete from Orders data
+app.get('/orders', db.getManufacturer);
+app.get('/orders/:id', db.getManufacturerById);
+app.post('/orders', db.createManufacturer);
+app.put('/orders/:id', db.updateManufacturer);
+app.delete('/orders/:id', db.deleteManufacturer);
 
-// retrieve customer table data by ID
-app.get('/customer/:id', db.getSingleCustomerById);      
+// retrieve, insert, update and delete from customer data
+app.get('/customer', db.getManufacturer);
+app.get('/customer/:id', db.getManufacturerById);
+app.post('/customer', db.createManufacturer);
+app.put('/customer/:id', db.updateManufacturer);
+app.delete('/customer/:id', db.deleteManufacturer);
 
-// Create Customer data
-app.post('/customer', db.createNewCustomer);
-
-// Update or Edit customer
-app.put('/customer/:id', db.updateCustomer);
-
-// Delete Customer data
-app.delete('/customer/:id', db.deleteCustomer);
-
-
-// Order Table
-
-// Get or fetch Orders data
-app.get('/orders', db.getOrders);
-
-// Get or fetch Orders  (single) data by ID
-app.get('/orders/:id', db.getSingleOrderById);      
-
-// Add or insert Orders data
-app.post('/orders', db.createNewOrder);
-
-// Update or Edit Orders data
-app.put('/orders/:id', db.updateOrder);
-
-// Delete Orders data
-app.delete('/orders/:id', db.deleteOrder);
-
-
-
-
+app.listen(port, () => {
+    console.log(`App running on port ${port}.`)
+  })
 
 
 
