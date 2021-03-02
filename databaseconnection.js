@@ -100,7 +100,7 @@ const createNewCustomer = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(201).send(`Succefully added with ID: ${result.insertId}`);
+        response.status(201).send(`Succefully added new customer with ID: ${result.insertId}`);
     })
 }
 

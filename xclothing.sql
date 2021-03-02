@@ -2,7 +2,7 @@ CREATE DATABASE xclothing;
 
 
 CREATE TABLE manufacturer (
-    id SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   productID  VARCHAR(30),
   OrderNumber VARCHAR (30) NOT NULL,
   ProductName VARCHAR(30),
