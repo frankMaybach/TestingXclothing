@@ -16,9 +16,7 @@ app.use(
 app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' });
 });
-app.get('/hello', (request, response) => {
-    response.status(200).send('Hello');
-});
+
 
 const db = require('./queries');
 // retrieve,Insert, update and delete from manufacturer data
@@ -44,7 +42,7 @@ app.put('/customer/:id', db.updateManufacturer);
 app.delete('/customer/:id', db.deleteManufacturer);
 
 app.listen(port, () => {
-    console.log(`App running on port ${port}.`)
+    console.log(`App running on port ${port}.`);
   })
 
 
